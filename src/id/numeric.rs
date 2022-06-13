@@ -5,7 +5,7 @@ use std::num::ParseIntError;
 use std::str::FromStr;
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq, Ord, PartialOrd, Hash)]
-pub struct NumericId(u64);
+pub struct  NumericId(u64);
 
 impl NumericId {
     pub fn new(id: u64) -> Self {

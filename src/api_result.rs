@@ -2,6 +2,7 @@ use crate::api::TwitterApi;
 use crate::authorization::Authorization;
 use crate::data::Expansions;
 use crate::error::{Error, Result};
+use crate::id::NumericId;
 use crate::meta::PaginationMeta;
 use crate::query::UrlQueryExt;
 use async_trait::async_trait;
@@ -20,7 +21,17 @@ pub struct ApiPayload<T, M> {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub includes: Option<Expansions>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub matching_rules: Option<Vec<MatchingRule>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub errors: Option<Vec<ApiError>>,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub struct MatchingRule {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<NumericId>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tag: Option<String>,
 }
 
 impl<T, M> ApiPayload<T, M> {
